@@ -226,7 +226,7 @@ odd_count = len(odd)
 print("Even numbers in the list: ", len(list2) - odd_count)
 print("Odd numbers in the list: ", odd_count)
 
-#1. write a python program to remove zeros from an IP address
+#8. write a python program to remove zeros from an IP address
 import re
 IP = "107.07.123.5616"
 string = re.sub('\.[0]*', '.', IP)
