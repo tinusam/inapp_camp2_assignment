@@ -78,3 +78,42 @@ print(birthstone(userInputMonth))
 
 
 
+
+#FOR loop to loop/iterate through a list in python
+fruits = ['apples','oranges','banana','cherry']
+for fruit in fruits:
+  print (fruit)
+
+#to display index using the enumerate method
+for index, fruit in enumerate(fruits):
+  print(index,fruit)
+
+#tuse for loop to generate a series of numbers
+#using the range function
+for i in range(10):
+  print(i)
+
+#WHILE loop
+counter = 5
+while counter > 0:
+  print ("Counter =", counter)
+  counter = counter - 1
+
+#break and continue statements
+#break example
+j = 0
+for i in range(10):
+  j= j +2
+  print('i = ', i,'j = ', j)
+  if j ==6:
+    break
+  print()
+
+#continue example
+j = 0
+for i in range(10):
+  j= j +2
+  print('i = ', i,'j = ', j)
+  if j ==6:
+    continue
+  print('continue j value is:',j)
