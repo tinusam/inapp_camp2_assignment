@@ -536,6 +536,70 @@ def http_status(status):
         return "unknown error occured"
 #calling the function inside print statement
 print(http_status(404))
+
+
+
+#looping in python
+#FOR loop to loop/iterate through a list in python
+fruits = ['apples','oranges','banana','cherry']
+for fruit in fruits:
+  print (fruit)
+
+#to display index using the enumerate method
+for index, fruit in enumerate(fruits):
+  print(index,fruit)
+
+#tuse for loop to generate a series of numbers
+#using the range function
+for i in range(10):
+  print(i)
+
+#WHILE loop
+counter = 5
+while counter > 0:
+  print ("Counter =", counter)
+  counter = counter - 1
+
+#break and continue statements
+#break example
+j = 0
+for i in range(10):
+  j= j +2
+  print('i = ', i,'j = ', j)
+  if j ==6:
+    break
+  print()
+
+#continue example
+j = 0
+for i in range(10):
+  j= j +2
+  print('i = ', i,'j = ', j)
+  if j ==6:
+    continue
+  print('continue j value is:',j)
+
+  #try except (similar to try catch) in python
+  try:
+      answer =12/0
+      print (answer)
+  except:
+      print("some friendly error")
 """
+    
+#loop assignment
+# 1) Print the list of number which are divisible by 5 and multiple of 8 between 2000 and 2500
 
+numl=[]
+for x in range(2000, 2500):
+    if (x%5==0) and (x%8==0):
+        numl.append(str(x))
+print (','.join(numl))
 
+#2) write a python program to create the multiplication table (from 1 to 10) of a number getting input from the user
+
+n = int(input("Input a number: "))
+# use for loop to iterate 10 times
+for i in range(1,11):
+   print(n,'x',i,'=',n*i)
+   
