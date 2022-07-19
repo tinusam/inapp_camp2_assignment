@@ -1,5 +1,6 @@
 import sys
 import re
+from time import process_time
 """
 print ("Hello world")
 #just printing the python version
@@ -113,7 +114,7 @@ mystring = "my email is tinu@tinu.com hope you will note it down"
 regex='\S+@\S+'
 x=re.findall(regex, mystring)
 print(x)
-"""
+
 
 #LIST AND LIST ACCESS OPTIONS
 studentsAge = [18,39,23,13]
@@ -250,11 +251,291 @@ output = re.sub('10', 'ten', output)
 print(output)
 
 
+#Tuples in Python
+months = ("Jan","Feb","March")
+print(months[0])
+print(months[-1])
+#months[0] = "test" will not work
+
+#tuples methods in python
+print(len(months))
+print("Jan" in months)
+print("January" in months)
+#del months
+print(months)
+print(months+months)
+print(months*3)
+
+#dictionary in python
+#dictionary declaration
+#method 1
+mystudents = {"Abhi":30, "Sibi":28, "Subi":"not updates"}
+#method 2
+mystudents = dict(Abhi=30, Sibi=28, Subi="not available" )
+#method 3
+mystudents = dict({"Abhi":30, "Sibi":28, "Subi":"not updates"})
+print(mystudents["sibi"])
+print(mystudents)
 
 
 
 
 
+#Dictionary methods
+print(mystudents.get("Subi"))#will return corressponding value
+print(mystudents.items()) #will return dict items as array of tuples
+print(mystudents.keys()) #return keys of the dict
+print(mystudents.values()) #return values of the dict
+print("Abhi" in mystudents) #return values of the dict
+print(30 in mystudents.value())
+print(len(mystudents))
 
+mystudents2={"Abhi":31,"Binu":26}
+mystudents.update(mystudents2)
+print(mystudents)
+
+mystudents.clear()
+print(mystudents)
+
+
+#set in python
+#method 1
+months={"jan","feb","mar"}
+#method 2
+months = set(["jan","feb","mar"])
+print(months)
+print(type(months))
+
+
+#looping through elements in a set
+
+for i in months:
+    print(i)
+
+ #declare an empty set
+    days = set()
+    #add values to set
+    days.add("mon")
+    days.add("tue")
+    days.add("wed")
+
+    for i in days:
+      print(i)
+
+
+myStudents2 = {"Abhi": 31, "Binu": 26}
+mystudents.update(myStudents2)#join together dict by overwriting duplicate keys
+print(mystudents)
+
+myStudents.clear() #clear all values inside dict
+print(mystudents)
+
+del mystudents #delete dict along with variable
+print(mystudents)
+
+
+#Set in python
+
+#method1
+months = {"Jan","Feb","March"}
+#method2 
+months = set(["Jan","Feb","March"])
+
+print(months)
+print(type(months))
+
+#looping thriugh elements in a set
+for i in months:
+    print(i)
+
+#declare an empty set
+days = set()
+#add values to set
+days.add("Mon") #insert single values
+days.add("Tue")
+days.add("Wed")
+#looping thriugh elements in a set
+for i in days:
+    print(i)
+
+days.update(["Thur","Fri"]) #insert multiple items
+#looping thriugh elements in a set
+for i in days:
+    print(i)
+
+#remove items from the set
+#using discard() method, will remove item, not display error if item does not exist
+days.discard("Thur")
+for i in days:
+    print(i)
+
+#using remove() method, will remove item, will display error if item does not exist
+days.remove("Thur")
+#loop through items in set
+for day in days:
+    print(day)
+
+days.clear()
+print("cleared the set")
+for day in days:
+    print(day)
+
+
+#set operations
+months1 = {"Jan","Feb","Mar"}
+months2 = set(["Mar","Apr","May"])
+#union operation
+months4 = months1 | months2
+print(months4)
+for month in months4:
+    print(month)
+
+#intersection operation
+months4 = months1 & months2
+print(months4)
+
+#intersection update
+months1 = {"Jan","Feb","Mar"}
+months2 = {"Mar","Apr","May","Feb"}
+months3 = {"Feb","Mar","Jun","Jul"}
+#months1.intersection_update(months2,months3)
+#print(months1)
+
+#difference operation
+months4 = months1 - months2
+print(months4)
+
+#symmetric difference 
+#will retain all elements of set excluding the common ones
+months4 = months1 ^ months2
+months4 = months1.symmetric_difference(months2)
+print(months4)
+
+
+
+months1 = {"Jan","Feb","Mar","Apr","May","Jun"}
+months2 = {"Mar","Apr","May","Feb"}
+months3 = {"Feb","Mar","Jun","Jul"}
+#set comparison operation
+#checking if month1 is a superset of month2
+print(months1 > months2)
+#check if two sets are equalent(no of elements itself should be same)
+print(months2 == months3)
+#check if two sets are equal
+print(months1 >= months2)
+print(months1 <= months2)
+
+#frozen set
+months4frozen = frozenset({"nov","dec"})#immutable set
+print(type(months4frozen))
+print(months4frozen)
+months4frozen.add("oct")#'forzenset' object has no attribute 
+
+
+#input and output function in python
+studName = input ("enter ur name:")
+studAge = input("enter the age:")
+print(studName)
+print(type(studName))
+print(studAge)
+print(type(studAge))
+
+#variations of print statement to include variables
+print("The student name is ",studName,"and the age is ",studAge)
+print("The student name is %s and the age is %s"%(studName,studAge))
+print("The student name is {} and the age is {}".format(studName,studAge))
+
+
+print('''hello world
+how are u''')
+#print a new line
+print('hello world\nhow are u')
+print('this is a backslah\\')
+print('i am 5\'5\"tall')
+
+#symmetric difference 
+#will retain all elements of set excluding the common ones
+months4 = months1 ^ months2
+months4 = months1.symmetric_difference(months2)
+print(months4)
+
+#Set comparisons operation
+months1 = {"Jan","Feb","Mar","Apr","May","Jun"}
+months2 = {"Mar","Apr","May","Feb"}
+months3 = {"Feb","Mar","Jun","Jul"}
+#checking if months1 is a superset of months2
+months1 > months2
+print(months1 >months2)
+print(months1 <months2)
+#check if two sets are equal
+print(months2 == months3)
+#check if two sets are equal
+print(months1 >= months2)
+#check if two sets are equal as well as month2 is a superset of month1
+print(months1 <= months2)
+
+#frozen set
+months4frozen = frozenset(["Nov","Dec"]) #immutable set
+print(type(months4frozen))
+print(months4frozen)
+
+months4frozen.add("oct") #frozen set has no attribute
+
+#input and output functions in python
+studName = input("Please enter you name: ")
+studAge = input("Please enter you age: ")
+print(studName)
+print(type(studName))
+print(studAge)
+print(type(studAge))
+
+#variations of print statement to include variables
+print("The student name is",studName, "and the age is",studAge)
+print("The student name is %s and the age is %s" %(studName,studAge))
+print("The student name is {} and the age is {}" .format(studName,studAge))
+
+#print in multiple lines
+print('''Hello World
+How are you''')
+#print a new line
+print("Hello World\nHow are you")
+print("This is a backslash\\")
+print('I am 5\' 5\" tall')
+
+
+#control flow ststement
+#conditional statements
+#if condition
+userInputNo = input('Enter either 1 or 2:')
+if(userInputNo == "1"):
+    print("You entered 1")
+    print("And you are number 1")
+elif(userInputNo == "2"):
+    print("You entered 2")
+    print("Runner up. Keep it up!")
+else:
+    print("you did not enter 1 or 2")
+
+#inline if statement
+B=12
+A=12 if B==10 else 13
+print(A)
+
+print("B is ten" if B==10 else "B is not 10")
+
+
+#python match case statement example
+#define a function
+def http_status(status):
+    match status:
+      case 400:
+        return "bad request"
+      case 404:
+        return"page not found"
+      case _:
+        return "unknown error occured"
+#calling the function inside print statement
+print(http_status(404))
+"""
 
 
