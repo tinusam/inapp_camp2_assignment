@@ -4,7 +4,7 @@ def phone_book():
         2. Add a new contact 
         3. Delete a contact
         4. Search by name 
-        5. Search by 
+        5. Search by number
         6. Exit''')
 
 phonebook=dict()
@@ -27,7 +27,7 @@ while(1):
     if num==3:
          #Delete a contact
         name = input("Enter the name to delete :")
-        if(phonebook[name]==name):
+        if name in phonebook.keys():
             del phonebook[name]
             print("contact {} deleted".format(name))
         else:
@@ -36,17 +36,17 @@ while(1):
     if num==4:
             #seach by contact by name
             name = input("Enter the name to search: ")
-            if(phonebook[name] == name):
+            if(name in phonebook.keys()):
                 print("{}-{}".format(name,phonebook[name]))
             else:
                 print("No contacts exited")
     if num==5:
             #search by number
             number = input("Enter the phone number:")
-            numbers = phonebook.values()
+            numbers = list(phonebook.values())
             if(number in numbers):
                 position = numbers.index(number)
-                names = phonebook.keys()
+                names = list (phonebook.keys())
                 print(names[position])
             else:
                 print("number not found!")
