@@ -803,4 +803,60 @@ answer = prime.checkIfPrime(13)
 print(answer)
 
 """
-#creating a simple phone book app
+
+#rights of a function in python
+
+
+
+def myfunction1():
+  print("this is myfunction1")
+myMyfunction = myfunction1
+myfunction1()
+myMyfunction()
+
+def myfunction1():
+  print("this is myfunction1")
+
+def myfun2(receivedfn):
+    receivedfn()
+    receivedfn()
+myfun2(myfunction1)
+
+
+#returning a function from a function
+def retuntoupperfn():
+  return str.upper
+
+upperref = retuntoupperfn()
+print(upperref("hello world"))
+
+#we can define a function inside another function
+
+def outer():
+  print("outer function")
+
+  def firstInner():
+    print("first inner function")
+
+  def secondInner():
+    print("second inner function")
+
+  firstInner()
+  secondInner()
+
+outer()
+
+
+
+#the inner function can acces the enclosing function variables
+
+  
+def myouter(mygreeting):
+      print("this outer function says", mygreeting)
+
+      def myfirstinnerfun():
+        print("the first inner func says", mygreeting)
+      return myfirstinnerfun
+
+myouterfuncvariable =myouter("peace to the world")
+myouterfuncvariable()
