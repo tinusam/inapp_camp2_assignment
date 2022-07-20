@@ -795,11 +795,12 @@ number = math.factorial(10)#factorial
 print(number)
 number = math.modf(3.14)#will return the int and fractional part
 print(number)
-"""
+
 #calling the custom module created
 import prime
 
 answer = prime.checkIfPrime(13)
 print(answer)
 
-
+"""
+#creating a simple phone book app
