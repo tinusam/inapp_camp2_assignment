@@ -1,0 +1,16 @@
+def calcugst(price, rate):
+    return price * (rate / 2) / 100
+
+
+def gstcalu():
+    price = float(input("Price before GST : "))
+    rate = float(input("GST rate : "))
+    SGST = calcugst(price, rate)
+    CGST = calcugst(price, rate)
+    print("Actual price of the item :", price)
+    print("Price after applying CGST :", CGST)
+    print("Price after applying SGST :", SGST)
+    print("Total price with GST :", price + CGST + SGST)
+
+
+gstcalu()
