@@ -1,3 +1,6 @@
+from ast import Sub
+from operator import sub
+from statistics import multimode
 import sys
 import re
 from time import process_time
@@ -585,7 +588,7 @@ for i in range(10):
       print (answer)
   except:
       print("some friendly error")
-"""
+
     
 #loop assignment
 # 1) Print the list of number which are divisible by 5 and multiple of 8 between 2000 and 2500
@@ -602,4 +605,201 @@ n = int(input("Input a number: "))
 # use for loop to iterate 10 times
 for i in range(1,11):
    print(n,'x',i,'=',n*i)
-   
+
+#FUNCTION 
+# FIND THE SUM OF TWO NUMBERS 
+def findSum(a,b):
+    sum=a+b
+    return sum
+print(findSum(2,3))
+
+#python function 
+#to find prime number
+def checkIfPrime (numbertocheck):
+  for x in range (2,numbertocheck):
+    if(numbertocheck%x==0):
+      return False
+  return True
+print(checkIfPrime (22))
+
+#function returing multiple values
+def calculations(a,b):
+  add = a + b
+  Sub = a - b
+  mul = a * b
+  div = a % b
+  return(add,Sub,mul,div)
+
+#calling the function
+output = calculations(40,30)
+print("Add result",output[0])
+print("Sub result",output[1])
+print("Mul result",output[2])
+print("Div result",output[3])
+
+
+#generator is a function that returns an iterator
+#iterator is something that we can loop through using a looping statement
+#function returing multiple values
+def calculationsyield(a,b):
+  add = a + b
+  yield add
+  Sub = a - b
+  yield Sub
+  mul = a * b
+  yield mul
+  div = a % b
+  yield div
+  return(add,Sub,mul,div)
+
+#using a for loop we can loop through the returned value from the function
+for value in calculationsyield(30,40):
+  print(value)
+
+
+#demonstrating variable scope
+#declaring a global variable
+message1 = "Just a global variable"
+
+def myFunction():
+    global message1 #enable modification of global  variable inside the function
+    print("reached inside fuction")
+    print(message1) #printing the global variable
+    message2 = "its a local variable"
+    print(message2)
+    message1 = "just modifying the global variable"
+    print(message1)#printing the global variable
+myFunction() #calling the function
+#print(message1)
+#print(message2)
+
+#demonstrate passing the arbitary list of arguments into the function
+def make_pizza(size,*toppings): #arbitary list parameter is prefixed by *
+    print(f"\nMaking a {size} -inch pizza with following toppings:")
+    for topping in toppings:
+        print(f"- {topping}")
+
+make_pizza(16,'pepperoni')
+make_pizza(12,'mushrooms','green peppers')
+
+
+def printme(str):
+    "this prints a passed string into this function"
+    print(str)
+    return 
+
+printme(str"test")
+
+
+
+#passing arugment as required and keyword args
+def printInfo(name, age):
+    print("name", name)
+    print("age", age)
+
+  #calling with req arguments
+printInfo("Tom",10)
+#calling with keyword arguments
+printInfo(age=10, name="Winne")
+    
+#Anonymous (lambda) function in python
+#function definition is here
+sum =lambda arg1, arg2: arg1 + arg2
+
+#we can call sum as a function
+print("value of total : ",sum(10,20))
+print("value of total : ",sum(20,10))
+
+
+#python fundamentals MODULES
+import random
+#calling function inside the module
+print(random.randrange(1,10))
+
+#OR
+
+import random as r
+print(r.randrange(1,20))
+
+#OR
+
+from random import randrange, randint
+print(randrange(1,20))
+
+#the random built in module
+import random
+print(random.random())
+print(random.randint(5,20))
+print(random.choice(["head","tail"]))
+
+myshirtcolors=["blue","red","black","yellow","green"]
+random.shuffle(myshirtcolors)
+print(myshirtcolors)
+
+random.seed(14)
+print(random.random())
+
+
+#time module in python
+import time;
+print(time.time()) #seconds part 1st jan 1970
+print(time.localtime(time.time()))#get the multiple time value as a tuple
+print(time.asctime(time.localtime(time.time())))
+
+for i in range (0,10):
+  print(i)
+  time.sleep(1) #dlay the program execution by the specificed no of seconds
+
+
+import datetime
+print(datetime.datetime.now())#return the current datetime object
+
+#creating custom datetime object
+birthday = datetime.datetime (2022,7,20)
+print(birthday)
+birthday = datetime.datetime(2022,7,20,10,15,50)
+print(birthday)
+
+
+#
+from datetime import datetime as dt
+
+if dt(dt.now().year,dt.now().month,dt.now().day,9)<  dt.now().year,dt.now().month,dt.now().day,9 
+print("working now")
+else:
+    print("shift completed")
+
+import calendar
+
+mycalendar = calendar.month(2022,7) #get calendar for a month
+print(mycalendar)
+mycalendar=calendar.prcal(2022) #get calendar for an year
+print(mycalendar)
+
+import math
+
+#finding the exponential of a num,ber, then its absolute , then its log, then
+#convert to the base of 10
+number = 2e-7
+print(math.log(math.fabs(number),10))
+
+number = math.pow(4,2)#power
+print (number)
+number=math.floor(4.3)#round to the smallest digit
+print(number)
+number= math.ceil(4.3)#will round to the next digit
+print(number)
+number = math.fabs(-10)#return absolute value
+print(number)
+number = math.factorial(10)#factorial
+print(number)
+number = math.modf(3.14)#will return the int and fractional part
+print(number)
+"""
+#calling the custom module created
+import prime
+
+answer = prime.checkIfPrime(13)
+print(answer)
+
+
