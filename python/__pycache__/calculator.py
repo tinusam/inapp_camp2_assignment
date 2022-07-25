@@ -44,5 +44,5 @@ class CalcQuo(calculator):
 
 sum = CalcSum()
 sum.num1 = 9
-sum.num2 = 8
+sum.num2 = 5
 print(sum.calculate())
