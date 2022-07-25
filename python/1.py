@@ -1,9 +1,12 @@
 from ast import Sub
 from operator import sub
 from statistics import multimode
+from symtable import SymbolTableFactory
 import sys
 import re
 from time import process_time
+from turtle import distance
+from unicodedata import name
 """
 print ("Hello world")
 #just printing the python version
@@ -802,7 +805,7 @@ import prime
 answer = prime.checkIfPrime(13)
 print(answer)
 
-"""
+
 
 #rights of a function in python
 
@@ -860,3 +863,485 @@ def myouter(mygreeting):
 
 myouterfuncvariable =myouter("peace to the world")
 myouterfuncvariable()
+
+
+#python decorators- a function,which accepts another function, enhance it
+#with a wrapper function and return the enhanced function back
+
+#define the decorator function, which accepts another function as the argument
+
+def mydecorator(myfuc):
+    def innerWrapper(): #wrapper fn "decorates" the function received
+      print("before the function call")
+      myfuc()
+      print("after the function call")
+
+    return innerWrapper
+
+#defining a simple fn to pass into the decorator
+def myfntopassintodecorator():
+  print("a simple function to pass into decorator")
+
+#calling the decorator
+mydecoratordemo = mydecorator(myfntopassintodecorator)
+#execute the decorator
+mydecoratordemo()
+
+#defining another simple fn to pass into the decorator
+@mydecorator
+def newmyfntopassintodecorator():
+  print("a new simple funtcto pass into decorator")
+
+newmyfntopassintodecorator()
+
+
+#creating an employee class
+
+class employee:
+    #defining a global varible(data member)
+    'common base class for al employees'
+    empcount = 0
+
+#defining a constructor
+#that can accept two values name and salary
+#save those values into self (self is an instance of the class)
+    def __init__(self, name, salary):
+      self.name = name
+      self.salary = salary
+      employee.empcount +=1 #increment the emp count when a new obj is created
+
+  #define a simple member function
+    def displayempcount(self):
+        print("total no of employee:", employee.empcount)
+    #define one more simple member function
+    def displayemployeedetails(self):
+        print("name:",self.name)
+        print("salary:",self.salary)
+
+#create an object of employee class
+employee1 = employee("Tom", 2000)
+employee2 = employee("jerry", 3000)
+
+
+employee1.displayempcount()
+employee1.displayemployeedetails()
+employee2.displayempcount()
+employee2.displayemployeedetails()
+
+#accessing the variable directly from the class 
+print("total employee count:", employee.empcount)
+
+
+
+
+
+class calcu():
+    def __init__(self,a,b):
+        self.a = a
+        self.b = b
+    def add(self):
+        return self.a + self.b
+    def multiply(self):
+        return self.a * self.b
+    def divide(self):
+        return self.a / self.b
+
+a = int(input('Enter First number : '))
+b = int(input('Enter Second number : '))        
+obj=calcu(a,b)
+while True:
+    def menu():
+        x = ('1. Add  \n2. Multiply \n3. Divide \n0. program exit') 
+        print(x)
+    menu()
+    choice = int(input('choice the option: ')) 
+    if choice == 1:
+        print("Result: ",obj.add())
+    elif choice == 2:
+        print("Result: ",obj.multiply())    
+    elif choice == 3:
+        print("Result: ",obj.divide())
+    elif choice == 0:
+        print('program exited')
+        break
+    else:
+        print('Invalid option') 
+        break       
+print()
+
+
+
+#demonstrating class inheritance
+class rocket:
+  #defining the constructor
+  def __init__(self, name, distance):
+      self.name = name
+      self.distance = distance
+
+  def launch(self):
+    return "%s has reached %s"%(self.name, self.distance )
+
+#creating a subclass
+class MrsRover(rocket): 
+  def __init__(self,name,distance, maker):
+      rocket.___init__(self, name, distance)
+      self.maker =maker
+
+  def get_maker(self):
+    return "%s has reached %s" % (self.name, self.distance)
+
+#defining a derrived class
+class MarsRover(rocket): #inheriting from the rocket class
+    def __init__(self,name,distance,maker):
+      rocket.__init__(self, name,distance)
+      self.maker = maker 
+
+    def printmaker (self):
+      return "%s launched by %s"%(self.name, self.maker)
+
+
+
+    #create object (instance) for main class rocket
+x= rocket("small rocket","till stratosphere")
+y= MarsRover("mars rover","till mars", "ISRO")
+
+print(x.launch())
+print(y.launch())
+print(y.printmaker())
+
+
+#Typically when usng a decorator , it will return the name,
+#docstring etc of the wrapper function
+#to change this behaviour and get the actual passed function's name and doc
+
+#define the decorator function, which accepts another function as the argument
+#inside the decorator using another decorator 'wraps' before the wrapper function
+import functools
+
+def acceptDecorator(mystring3):
+  def mydecorator(myfuc):
+    @functools.wraps(myfuc)
+    def innerWrapper(*args): #wrapper fn "decorates" the function received
+      print("before the function call")
+      value = myfuc(*args)
+      print("after the function call")
+      return value
+    return innerWrapper
+  return mydecorator
+
+
+#defining another simple fn to pass into the decorator
+@acceptDecorator("testing string into decorator")
+def newmyfntopassintodecorator(mystring,mystring2):
+  "sample doc string for our newmyfntopassintodecorator() function"
+  returnstring =("a new simple funtcto pass into decorator"+mystring+mystring2)
+  return returnstring
+
+returnedstring = newmyfntopassintodecorator("just some text string","next string")
+print(returnedstring)
+
+
+#demonstrating class decorating mathod in python
+#defining the main class
+class Hero:
+  #define the decorator @classmethod
+  @classmethod
+  def say_class_hello(cls): #since its classmethod, will receive class 
+    if(cls.__name__=="HeroSon"):
+      print("Hi Price, calling from HeroSon")
+    elif(cls.__name__=="HeroDaughter"):
+      print("Hi Price, calling from HeroSon")
+
+  @staticmethod
+  def say_hello():
+    print("hello..")
+class HeroSon(Hero):
+  def say_son_hello(self):
+    print("hello son from sub class HeroSon")
+
+class HeroDaughter(Hero):
+  def say_son_hello(self):
+    print("hello daughter from sub class HeroDaughter")
+
+testHeroSon = HeroSon()
+testHeroSon.say_class_hello()
+testHeroSon.say_hello()
+
+testHeroDaughter = HeroDaughter()
+testHeroDaughter.say_class_hello()
+testHeroDaughter.say_hello()
+""
+
+class House:
+  #constructor
+  def __init__(self, price):
+    self.__price = price 
+
+  #creating the gettr method decorator 
+  @property
+  def price(self):
+      return self.__price  
+
+  #creating a setter method decorator
+  @price.setter
+  def price(self,new_price):
+    self.__price = new_price
+
+  @price.delecter
+  def price(self):
+      del  self.__price
+
+#typically acces and update will be like this
+house = House(50000) #create obj
+print(house.price)# access value
+house.price = 1000000 #modify the attribute
+print(house.price)# access value
+del house.price #delete price of the house instance
+print(house.price) #access attribute
+
+
+#File handling demo using python
+#trying to open a file myfile.txt in the same dir
+#using open() method get the file object
+myFile = open("myFile.txt","r")
+#to read  the contents, use the read() method
+print(myFile.read(10))
+print(myFile.readline())
+
+
+# A Simple example for higher order function
+#which can accept at least one fn and can optionally return a funtion
+
+# a simple fn with a print statement
+
+def greet(name):
+  return "Hello{}".format(name)
+
+
+#defining the higher order fn which can accept fn
+def print_greetings(fn,param):
+  print(fn(param))
+
+#calling the highter ordr fn
+print_greetings(greet,"Tinu")
+
+#map() fn - a higher order fn which can accept a fn and also 
+# a list of iterable params. each param will applied to the fn
+#result will be returned back as a map obj
+#we can later convert this map obj into set/tuple
+
+#defining a simple fn
+def mymapfunction(a):
+  return a*a
+
+# passing a lamda fn as the  iterables
+x= map(mymapfunction,(1,2,3,4))
+#x is a map obj, need to convert that into set/tuple
+print(tuple(x))
+
+# passing a lamda fn as the  iterables
+x= map(lambda x:x*x,(1,2,3,4))
+#x is a map obj, need to convert that into set/tuple
+print(tuple(x))
+
+
+#filter funtion which filters iterables based on condition
+#it accepts the fn and also the iterables as parameters
+
+#defining a filter condition function
+def filterfn(x):
+  if x>=3:
+    return x
+
+#calling the filter fn passing the condition fn and iterables  
+y = filter(filterfn,(1,2,3,4))
+#converting the returned filter obj into tuple
+print(list(y))
+
+
+#calling the filter fn passing the lambda fn and iterables  
+y = filter(lambda x: (x>=3),(1,2,3,4))
+#converting the returned filter obj into tuple
+print(list(y))
+
+#reduce function to reduce the list of values based on the operation
+#it will accept the fn (preferably lambda) and the iterables
+from functools import reduce
+x = reduce(lambda a,b : a+b,[23,32,21,54])
+print(x)
+
+#PYTHON ABSTRACT CLASSES
+
+class lion :
+  def give_food(self):
+    print("feeding a lion with raw meat")
+
+class panda:
+  def feed_animal(self):
+    print("feeding a panda with bamboo")
+
+class snake:
+  def feed_snake(self):
+    print("feeding a snake with mice")
+
+#creating object for  animal we plan to feed
+simba = lion()
+kungfupanda = panda()
+kingcobra = snake()
+#calling the feeding fn for each of them
+simba.give_food()
+kungfupanda.feed_animal()
+kingcobra.feed_snake()
+
+#ABSTRACT CLASS
+#importing thr abstract class the decorator from abc module
+from abc import ABC, abstractmethod
+#DECLARING THE ABSTRACT BASE CLASS INHERITING FROM ABC
+class animal(ABC):
+  @abstractmethod
+  def feed(self):
+    pass
+   
+   #Dedind a diet property using property decorator
+   #and abstractmethod
+  @property
+  @abstractmethod
+  def diet(self): #define diet property
+    pass
+  
+  @property
+  def food_eaten(self): #define the food_eaten property
+    #food_eaten property's getter
+    return self.__food
+  
+
+  #having the setter foe food_eaten
+  @food_eaten.setter
+  def food_eaten(self,food):
+    if food in self.diet:
+      self.__food = food
+    else:
+      raise ValueError(f"this animal doesn't eat this")
+
+
+  @abstractmethod
+  def do(self,action):#action is an abstract method
+    pass
+
+class lion(animal):
+   @property
+   def diet(self):
+    return ["antelope", "cheeta","deer"]
+   def feed(self): 
+   
+    print(f"feeding a lion with {self.food_eaten}")
+   def do(self,action,time): #must implement do because its abs method
+ 
+    print(f"{action}  lion with raw meat at {time}")
+
+class panda(animal):
+  @property
+  def diet(self):
+        return ["bamboo", "leaves"]
+  def feed(self):
+      print(f"feeding a panda with {self.food_eaten}")
+  def do(self,action,time):
+     print(f"{action}  panda with raw bamboo at {time}")  
+
+class snake(animal):
+  @property
+  def diet(self):
+        return ["mice", "rabbit"]
+
+  def feed(self):
+    print(f"feeding a snake with {self.food_eaten}")
+  def do(self,action,time):
+     print(f"{action}  snake with raw mice at {time}")  
+
+#creating the object
+
+simba =lion()
+simba.food_eaten="deer"
+simba.feed()
+kungfupanda = panda()
+kungfupanda.food_eaten ="bamboo"
+simba.feed()
+kingcobra =snake()
+kingcobra.food_eaten = "mice"
+simba.feed()
+
+#since all the methods are having same name, this is inefficient
+simba.feed()
+kungfupanda.feed()
+kingcobra.feed()
+
+#instead of calling method repeatedly like above,
+#we can have a for loop for the list of classes
+zoo_class_list =[simba, kungfupanda, kingcobra]
+
+for animal in zoo_class_list:
+  animal.do(action = "feeding", time = "10:10AM")
+  animal.feed()
+
+
+
+#file handling demo using python
+#trying to open a file myfile.txt in the same dir
+myFile = open("myfile.txt","r")
+#to read contents use read 
+#print(myFile.read(10))
+#print(myFile.readline())
+#print(myFile.readline())
+#print(myFile.readline())
+
+#reading the contents of thr file line by line using for loop
+for line in myFile:
+  print(line)
+
+#we need to close the file cursor/obj once we completed 
+#the operation associated with it.
+myFile.close()
+
+myFile = open("myfile.txt","r")
+#read all the lines and return it as a list
+myFileContentsList = myFile.readlines()
+print(myFileContentsList)
+myFile.close()
+
+#opening the file cursor in append mode
+#whatever content we write all be appended to the end of the file
+myFile = open("myfile.txt","w")
+#read all the lines
+myFile.write("humpty dumpty sat on a wall\n")
+myFile.close()
+
+myFile = open("myfile.txt","r")
+print("the file pointer is now at",myFile.tell())
+#read all the lines and return it as a list
+#myFileContentsList = myFile.readlines()
+#print("the file pointer is now at",myFile.tell())
+#print(myFileContentsList)
+#print(myFile.readline())
+#change the file pointer offset using seek()
+myFile.seek(30)
+print("the file pointer is at",myFile.tell())
+myFileConstentslist = myFile.readline()
+print("the file pointer is at",myFile.tell())
+print(myFileConstentslist)
+myFile.close()
+""
+#renaming a file using python 
+import os
+if os.path.exists("myfilenew.txt"):
+  os.rename("myfilenew.txt","myfile.txt")
+  print("rename success")
+else:
+  print("the file doesnot exist")
+"""
+import os
+#create  a new dire
+os.mkdir("mydir")
+
+
+
+
