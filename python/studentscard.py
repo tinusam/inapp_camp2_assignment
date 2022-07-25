@@ -1,4 +1,4 @@
-class Utils:
+class Stud:
     @staticmethod
     def getInt(*msg):
         while(True):
@@ -81,43 +81,43 @@ class Student:
         print('Programing:', self.__programing)
 
 
-class SRCMS:
+class Report:
     students = dict()
 
     @staticmethod
     def create():
-        rollno = Utils.getInt('Rollno: ')
-        if SRCMS.students.get(rollno):
+        rollno = Stud.getInt('Rollno: ')
+        if Report.students.get(rollno):
             print('Student already exist')
         else:
             name = input('Name: ')
             print('Enter marks')
-            maths       = Utils.getFloat('Maths: ')
-            physics     = Utils.getFloat('Physics: ')
-            chemistry   = Utils.getFloat('Chemistry: ')
-            english     = Utils.getFloat('English: ')
-            programing  = Utils.getFloat('Programing: ')
+            maths       = Stud.getFloat('Maths: ')
+            physics     = Stud.getFloat('Physics: ')
+            chemistry   = Stud.getFloat('Chemistry: ')
+            english     = Stud.getFloat('English: ')
+            programing  = Stud.getFloat('Programing: ')
             student  = Student(name, maths, physics, chemistry, english, programing)
-            SRCMS.students[rollno] = student
+            Report.students[rollno] = student
             print('Student added successfully')
 
     @staticmethod
     def delete():
-        rollno = Utils.getInt('Rollno: ')
-        if SRCMS.students.get(rollno):
-            del SRCMS.students[rollno]
+        rollno = Stud.getInt('Rollno: ')
+        if Report.students.get(rollno):
+            del Report.students[rollno]
             print('Student deleted successfully')
         else:
             print('Student does not exist')
 
     @staticmethod
     def modify():
-        rollno = Utils.getInt('Rollno: ')
-        if SRCMS.students.get(rollno):
-            student = SRCMS.students.get(rollno)
+        rollno = Stud.getInt('Rollno: ')
+        if Report.students.get(rollno):
+            student = Report.students.get(rollno)
             student.display()
             while(True):
-                opt = Utils.getInt(f'''
+                opt = Stud.getInt(f'''
 Choose Mark to edit:
     1. Maths
     2. Physics
@@ -128,11 +128,11 @@ Choose Mark to edit:
     > '''
                 )
                 match opt:
-                    case 1: student.maths = Utils.getFloat('Maths: ')
-                    case 2: student.physics = Utils.getFloat('Physics: ')
-                    case 3: student.chemistry = Utils.getFloat('Chemistry: ')
-                    case 4: student.english = Utils.getFloat('English: ')
-                    case 5: student.programing = Utils.getFloat('Programing: ')
+                    case 1: student.maths = Stud.getFloat('Maths: ')
+                    case 2: student.physics = Stud.getFloat('Physics: ')
+                    case 3: student.chemistry = Stud.getFloat('Chemistry: ')
+                    case 4: student.english = Stud.getFloat('English: ')
+                    case 5: student.programing = Stud.getFloat('Programing: ')
                     case 6: break
                     case _: print('Invalid input')
         else:
@@ -140,9 +140,9 @@ Choose Mark to edit:
 
     @staticmethod
     def listAllStudents():
-        if len(SRCMS.students) > 0:
+        if len(Report.students) > 0:
             print('Student details: ')
-            for rollno, student in SRCMS.students.items():
+            for rollno, student in Report.students.items():
                 print('\nRollno: ', rollno)
                 student.display()
         else:
@@ -150,16 +150,16 @@ Choose Mark to edit:
 
     @staticmethod
     def showStudent():
-        rollno = Utils.getInt('Rollno: ')
-        if SRCMS.students.get(rollno):
+        rollno = Stud.getInt('Rollno: ')
+        if Report.students.get(rollno):
             print('\nRollno: ', rollno)
-            SRCMS.students[rollno].display()
+            Report.students[rollno].display()
         else:
             print('Student does not exist')
 
 
 while(True):
-    opt = Utils.getInt('''
+    opt = Stud.getInt('''
     1. Create Student Record
     2. Delete Student Record
     3. Modify Marks
@@ -170,10 +170,10 @@ while(True):
     > ''')
 
     match opt:
-        case 1: SRCMS.create()
-        case 2: SRCMS.delete()
-        case 3: SRCMS.modify()
-        case 4: SRCMS.listAllStudents()
-        case 5: SRCMS.showStudent()
+        case 1: Report.create()
+        case 2: Report.delete()
+        case 3: Report.modify()
+        case 4: Report.listAllStudents()
+        case 5: Report.showStudent()
         case 6: break
         case _: print('Invalid input') 
