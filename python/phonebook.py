@@ -34,7 +34,7 @@ while(1):
                 print("No name exited")
 
     if num==4:
-            #seach by contact by name
+            #search by contact by name
             name = input("Enter the name to search: ")
             if(name in phonebook.keys()):
                 print("{}-{}".format(name,phonebook[name]))
