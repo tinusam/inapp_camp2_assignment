@@ -1,4 +1,5 @@
 from ast import Sub
+from logging import exception
 from operator import sub
 from statistics import multimode
 from symtable import SymbolTableFactory
@@ -1337,11 +1338,95 @@ if os.path.exists("myfilenew.txt"):
   print("rename success")
 else:
   print("the file doesnot exist")
-"""
+
 import os
 #create  a new dire
 os.mkdir("mydir")
 
+#exception handling in python
+#A simple demonstration of exception handling in python
+#using the try, excepts, finally block(clause)
+try:
+  div = 4//2
+  print (div)
 
+except Exception as e:
+  print("you are trying to divide a number by 0")
+  print(f"{type(e).__name__}was occured. More details below:")
+  print(e) #print the entire details of the exception
+
+else: #elae will work if the entire details of the exception
+  print("division completed and result is ",div)
+finally:
+  print("I will run whatever happens")
+
+#Nested try except statement in python
+try:
+  f= open("myfile.txt")
+  try:
+    f.write("hello world")
+  except:
+    print("some write error occured")
+  finally:
+    f.close()
+except:
+  print("the file cannot be opened")
+
+#importing pyodbc module
+import pyodbc
+
+#create a cinnection string
+conString = 'Driver={SQL Server};Server=DESKTOP-7IPO8LB\SQLEXPRESS;Database=employee_db;Trusted_Connection=yes;'
+#create a connnection with the connection string
+myconn = pyodbc.connect(conString)
+#get the cursor object
+mycursor = myconn.cursor()
+print(mycursor)
+
+#using cursor, execute SQL commands
+try:
+  mycursor.execute('''CREATE TABLE EmployeeMaster3
+  (Id INT IDENTITY PRIMARY KEY,
+	EmployeeCode VARCHAR(10),
+	EmployeeName VARCHAR(25),
+	DepartmentCode VARCHAR(10),
+	LocationCode VARCHAR(10),
+	Salary INT)''')
+except Exception as e:
+  print("cannot create the table because :")
+  print(f"{type(e).__name__} was occured.")
+  print(e)
+myconn.commit()
+myconn.close()
+
+print("Statement after the query")
+"""
+import pyodbc
+#create a connection string
+myConString =  'Driver={SQL Server};Server=DESKTOP-7IPO8LB\SQLEXPRESS;Database=employee_db;Trusted_Connection=yes;'
+#create a connection with connection string
+myconn = pyodbc.connect(myConString)
+mycursor = myconn.cursor()
+try:
+
+#get the cursor object
+  mycursor = myconn.cursor()
+
+#using cursor, execute SQL commands
+  mycursor.execute("INSERT INTO EmployeeMaster VALUES ('E0888', 'Arjun', 'IT', 'TVM', 4000)")
+  #mycursor.execute('SELECT * FROM EmployeeMaster')
+  mycursor.execute("INSERT INTO EmployeeMaster VALUES (?,?,?,?,?)",('E0899', 'Arjuna', 'IT', 'TVM', 9000))
+  myconn.commit()
+except Exception as e:
+  print("Cannot read the table :")
+  print(e)
+
+mycursor.execute('SELECT * FROM EmployeeMaster')
+
+for row in mycursor.fetchall():
+  print(row)
+
+
+myconn.close()
 
 
