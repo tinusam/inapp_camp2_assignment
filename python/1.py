@@ -1400,7 +1400,7 @@ myconn.commit()
 myconn.close()
 
 print("Statement after the query")
-"""
+
 import pyodbc
 #create a connection string
 myConString =  'Driver={SQL Server};Server=DESKTOP-7IPO8LB\SQLEXPRESS;Database=employee_db;Trusted_Connection=yes;'
@@ -1428,5 +1428,274 @@ for row in mycursor.fetchall():
 
 
 myconn.close()
+
+#user raising an exception explicitly for condition
+x=0
+if x==0:
+  #using raise keyword can 
+  raise Exception("The number cannot be zero")
+
+x="hello"
+if not type(x) is int:
+  raise TypeError("Int values are allowed")
+
+
+#creating auser defined Exception class
+#Exceptions should be derrived from the built-in exception class
+#creating a class inherting the built-in exception class
+class MyError(Exception):
+  #creating the constructor
+  def __init__(self, value):
+    self.value = value
+  #the __str__ dunder method
+  def __str__(self):
+    return(repr(self.value))
+#__str__ magic fn is used to get the informal string that 
+#represents the objects
+
+#using the class that we just created
+try:
+  x=0
+  if x==0:
+    raise(MyError("Number cannot be zero"))
+except MyError as error:
+  print('A new exception occured',error)
+
+print("hello")
+#the exception derived class being inherited by another class
+class myError(Exception):
+  #base class for exceptions
+  pass
+
+class DivideByzero(myError):
+  pass
+
+try:
+  x = 0
+  if x == 0:
+    raise(DivideByzero)
+  
+except DivideByzero:
+  print('A new exception occured: ')
+
+print("hello")
+
+
+#magic method or dunder method in python
+#special method which is already defined/built-in the python
+#classes. we are overloading them to use in our program
+
+#to view the available dunder method in a class, we can use
+#the dir() method
+#eg; int is an object and to view its dunder method
+print (dir(int))
+
+class Car:
+  pass
+
+car= Car()
+print(car)
+#<__main__.car object at
+#if we want to change the behaviour of the dunder repper
+class Car:
+  #overriding the dunder repper
+  def __repr__(self):
+    return f"{self.__class__.__qualname__}"
+
+car = Car()
+print(car)
+
+class Car:
+  #overriding the dunder repper
+  def __repr__(self):
+    return f"{self.__class__.__qualname__}"
+
+car = Car()
+print(car)
+
+#math dunder method example
+#creating a class called RandomNumbers which can accept
+#two numbers per object
+
+class RandomNumbers:
+  def __init__(self,a,b):
+    self.a = a
+    self.b = b
+#create object for our RandomNumbers class
+rand_obj_a = RandomNumbers(2,4)
+rand_obj_b = RandomNumbers(3,4)
+
+#trying to add two random objects 
+print(rand_obj_a + rand_obj_b)
+#TypeError: unsupported operand type(s) for +: 'RandomNumbers' and 'RandomNumbers'
+
+#create a dunder method 
+#trying to override the __add__dunder method which is
+#called implicity when we use the '+' operator
+class RandomNumbers:
+  def __init__(self,a,b):
+    self.a = a
+    self.b = b
+  #override the __add__dunder method
+  def __add__(self, other):
+    #returing the sum of two left digits and two rightdigit
+    #converted to random number object
+    return RandomNumbers(other.a + self.a, other.b + self.b)
+#to represent as string using our dunder repper 
+#overiding the dunder repper function of random numbers
+  def __repr__(self):
+    return f"{self.__class__.__qualname__}({self.a},{self.b})"
+
+#create object for our RandomNumbers class
+rand_obj_a = RandomNumbers(2,4)
+rand_obj_b = RandomNumbers(3,4)
+
+#trying to add two random objects 
+print(rand_obj_a + rand_obj_b)
+"""
+
+#demonstarting the class dunder methods
+ #creating a class with an empty list of software names
+ #and an empy dict of software name and version as key value pair
+from errno import WSAEHOSTUNREACH
+from re import S
+
+
+class Softwares:
+  names = []
+  versions = {} #hold the key value pair of sw names and sw version
+
+  #defining (overriding) the constructor
+  #invoked when we create an obj abd give the names list
+  #sw1 = Softwares(['ps','msword','mspaint'])
+  def __init__(self,names): #getting sw names as a list
+    if names: # if names is not empty
+      self.names = names.copy() #create a copy of the list
+      for name in names: #looping through the list
+        self.versions[name] = 1 
+        #initialise sw verion to 1 for all sw names
+    else:
+      raise Exception("Names cannot be empty")
+
+  #overriding the str dunder for displaying the list of sws
+  #will be invoked when calling print(objname)
+  #sw1 = Softwares(['ps','msword','mspaint'])
+  #print(sw1)
+  def __str__(self):
+    #loop through the dict and print the list
+    s = "The list of s/w's and its versions are: \n"
+    for key,value in self.versions.items():
+      s += f"{key}: version: {value} \n"
+    return s
+
+  #overriding the __setitem__ dunder method
+  #this will be invoked when for eg:
+  #sw1['msword'] = 2
+  def __setitem__(self,name,version):
+    if name in self.versions:
+      self.versions[name] = version
+    else:
+      raise Exception("S/w name does not exist.")
+
+  #overriding the __getitem__ dunder method
+  #this will be invoked when
+  #prinr(sw1['msword'])
+  def __getitem__(self,name):
+    if name in self.versions:
+      return self.versions[name]
+    else:
+      raise Exception("S/w name does not exist.")
+
+  #overriding the __delitem__ dunder method
+  #this will be invoked when we delete an item
+  # del sw1['msword']
+  def __delitem__(self,name):
+    if name in self.versions:
+      #delete that item from the dictionary versions
+      del self.versions[name]
+      #delete the item from the names list
+      self.names.remove(name)
+    else:
+      raise Exception("S/w name does not exist.")
+
+  #overriding the __len__ dunder method
+  #this will be invoked when calling print(len(sw1))
+  def __len__(self):
+    return len(self.names)
+
+  #override the __contains__ dunder method
+  #this will be invoked when calling 
+  # if 'msword' in sw1: if yes, will return true, else false
+  def __contains__(self,name):
+    if name in self.versions:
+      return True
+    else:
+      return False
+
+
+
+#creating the Software Class object
+sw1 = Softwares(['ps','msword','mspaint'])
+#print the software class object
+print(sw1)
+#trying to set new version for msword software name
+sw1['msword'] = 2
+print(sw1)
+#trying to get th eversion number for msword
+sw1['msword'] = 2
+print(sw1['msword'])
+#delete item from dictionary
+del sw1['msword']
+#print(sw1['msword'])
+
+print(len(sw1))
+#checking tif the given sw name is in dictionary
+if 'ps' in sw1:
+  print("Software exists")
+else:
+  print("Software does not exist")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
