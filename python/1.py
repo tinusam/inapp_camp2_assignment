@@ -1552,7 +1552,7 @@ rand_obj_b = RandomNumbers(3,4)
 
 #trying to add two random objects 
 print(rand_obj_a + rand_obj_b)
-"""
+
 
 #demonstarting the class dunder methods
  #creating a class with an empty list of software names
@@ -1656,30 +1656,85 @@ else:
   print("Software does not exist")
 
 
+#create a copy of a list with some processing/condition checks
+#without implementing the comprehension just using a for loop
+words = ["hello","world", "how","are","you"]
+newlist=[]
+for word in words:
+  if'o' in word:
+    newlist.append(word)
+
+print(newlist)
+
+#we will use list comprehension for the same task
+word =["hello","world", "how","are","you"]
+newlist =[word for word in word if "o" in word ]
+print(newlist)
 
 
+#using comprehension generte list
+numlist = [x for x in range(20)]
+print(numlist)
+
+#using expression to change all the items to upper case
+word =["hello","world", "how","are","you"]
+mewlist =[word.upper() for word in word if "o" in word]
+print (newlist)
+
+#generate a new list with item 'hello' for all the items
+newlist = ['hello 'for word in words]
+print(newlist)
+
+newlist = [word if word != "hello" else "hi" for words in words]
+print(newlist)
+
+#working with CSV files using python
+#using the csv module reader() method
+import csv #importing the csv module
+
+#opening the csv file
+file = open("mycsvfile.csv")
+#using the csv. reader to read the file obj
+csvreader = csv.reader(file)
+
+#declaring empty header and rows list
+header = []
+rows = []
+
+#using the next() method to read the current
+#line and stop at the start of next line
+header = next(csvreader)
+print(header)
+
+#using a for loop read the row
+for row in csvreader:
+  rows.append(row)
+print(rows)
+
+#close the file handler
+file.close()
+"""
 
 
+#trying to read csv file without any lib
+with open('mycsvfile.csv') as file:
+  content = file .readlines()
 
+import csv
+content=[i.strip()for i in content]
+header = content[:1]
+#rows will from index 1 onwards
+rows  = content[:1]
+print(header)
+print(rows)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#performing write to the csv file
+header =['Names','Experience','Salary']
+data = [['Anu',8,40000],['Manu',7,20000]['Binu',5,25000]]
+with open ("mycsvfile.csv",'w', newline="")as file:
+  csvwriter = csv.writer(file)#crating the csv write obj
+  csvwriter.writerow(header)#write the header
+  csvwriter.writerows(data)#write the row content
 
 
 

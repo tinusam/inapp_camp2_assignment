@@ -35,10 +35,10 @@ def add():
         else:
             break
     while(True):
-        patientID=int(input('Enter patient id:'))
-        gender = input('Enter gender of patient: ')
-        age = int(input("Enter age of patient: "))
-        bloodGroup = input('Enter blood group: ')
+        patientID=int(input('Enter patientId:'))
+        gender = input('Enter the gender of patient: ')
+        age = int(input("Enter the age of patient: "))
+        bloodGroup = input('Enter the blood group of patient: ')
         break
     try:
         myCursor.execute(
@@ -52,7 +52,7 @@ def add():
         print('Patient added')
 
 def delete():
-    name = input('Enter name to delete: ')
+    name = input('Enter the name to be delete: ')
     try:
         myCursor.execute(
             'DELETE FROM Patient WHERE patientName=?',
@@ -122,7 +122,7 @@ while(True):
     1. Add new patient
     2. Update patient details
     3. Delete patient details
-    4. List patients
+    4. List all the records
     5. Search patient name
     6. Exit
     ''')
